@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_flutter/screens/splash_screen.dart';
+import 'package:food_flutter/screens/walktrough_screen.dart';
+import 'package:food_flutter/screens/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => const SplashScreen(),
+        '/welcome': (context) => const WelcomeScreen(),
+        '/walk-trough' : (context) => const WalktroughScreen()
       },
       title: 'Foodiez',
       theme: ThemeData(

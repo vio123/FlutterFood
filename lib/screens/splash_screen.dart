@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:food_flutter/screens/welcome_screen.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,8 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     timer = Timer.periodic(const Duration(milliseconds: 500), (_) {
       counter.value += 10;
-      if(counter.value == 100){
+      if(counter.value == 130){
         timer?.cancel();
+        Navigator.pushReplacementNamed(context, '/welcome');
       }
     });
   }
