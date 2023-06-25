@@ -17,11 +17,37 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/welcome': (context) => const WelcomeScreen(),
-        '/walk-trough' : (context) => const WalktroughScreen(),
-        '/start-login' : (context) => const StartLoginScreen()
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/splash':
+            return MaterialPageRoute(
+              builder: (context) => const SplashScreen(),
+              settings: const RouteSettings(name: '/splash'),
+              fullscreenDialog: false,
+              maintainState: true,
+            );
+          case '/welcome':
+            return MaterialPageRoute(
+              builder: (context) => const WelcomeScreen(),
+              settings: const RouteSettings(name: '/welcome'),
+              fullscreenDialog: false,
+              maintainState: true,
+            );
+          case '/walk-trough':
+            return MaterialPageRoute(
+              builder: (context) => const WalktroughScreen(),
+              settings: const RouteSettings(name: '/walk-trough'),
+              fullscreenDialog: false,
+              maintainState: true,
+            );
+          case '/start-login':
+            return MaterialPageRoute(
+              builder: (context) => const StartLoginScreen(),
+              settings: const RouteSettings(name: '/start-login'),
+              fullscreenDialog: false,
+              maintainState: true,
+            );
+        }
       },
       title: 'Foodiez',
       theme: ThemeData(

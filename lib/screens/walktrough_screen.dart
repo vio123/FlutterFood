@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_flutter/screens/start_login_screen.dart';
 import 'package:food_flutter/widget/build_pager.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -101,6 +102,21 @@ class _WalktroughScreenState extends State<WalktroughScreen> {
                     _controller.nextPage(
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeIn);
+                  }else{
+                    /*
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                          const StartLoginScreen(),
+                          settings: const RouteSettings(
+                              name: '/start-login'),
+                          fullscreenDialog: false,
+                          maintainState: true,
+                        ));
+
+                     */
+                    Navigator.pushReplacementNamed(context, '/start-login');
                   }
                 },
                 child: Text(

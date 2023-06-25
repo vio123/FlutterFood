@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:food_flutter/screens/walktrough_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -14,7 +15,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-       Navigator.pushReplacementNamed(context, '/walk-trough');
+      /*
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+            const WalktroughScreen(),
+            settings: const RouteSettings(
+                name: '/walk-trough'),
+            fullscreenDialog: false,
+            maintainState: true,
+          ));
+
+       */
+      Navigator.pushReplacementNamed(context, '/walk-trough');
     });
   }
   @override

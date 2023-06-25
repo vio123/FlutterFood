@@ -22,6 +22,19 @@ class _SplashScreenState extends State<SplashScreen> {
       counter.value += 10;
       if(counter.value == 130){
         timer?.cancel();
+        /*
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+              const WelcomeScreen(),
+              settings: const RouteSettings(
+                  name: '/welcome'),
+              fullscreenDialog: false,
+              maintainState: true,
+            ));
+
+         */
         Navigator.pushReplacementNamed(context, '/welcome');
       }
     });
