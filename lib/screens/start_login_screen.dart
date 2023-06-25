@@ -11,6 +11,7 @@ class StartLoginScreen extends StatefulWidget {
 
 class _StartLoginScreenState extends State<StartLoginScreen> {
   String userAgent = "";
+
   @override
   void initState() {
     super.initState();
@@ -18,11 +19,13 @@ class _StartLoginScreenState extends State<StartLoginScreen> {
       userAgent = html.window.navigator.userAgent.toLowerCase();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(
             height: 50,
@@ -45,6 +48,7 @@ class _StartLoginScreenState extends State<StartLoginScreen> {
             "Let’s you in",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 50),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 20,
@@ -57,16 +61,92 @@ class _StartLoginScreenState extends State<StartLoginScreen> {
               btnText: "Continue with Google",
             ),
           ),
-          const SizedBox(height: 10,),
-          userAgent.contains('iphone') || userAgent.contains('ipad') || userAgent.contains('mac os') ?
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: ButtonWithIcon(
-              backgroundColor: Color(0x0f35383f),
-              imageAsset: "assets/appleIcon.png",
-              btnText: "Continue with Apple",
+          const SizedBox(
+            height: 10,
+          ),
+          userAgent.contains('iphone') ||
+                  userAgent.contains('ipad') ||
+                  userAgent.contains('mac os')
+              ? const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: ButtonWithIcon(
+                    backgroundColor: Color(0x0f35383f),
+                    imageAsset: "assets/appleIcon.png",
+                    btnText: "Continue with Apple",
+                  ),
+                )
+              : const SizedBox.shrink(),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'or',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
             ),
-          ) : SizedBox.shrink(),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1BAC4B)),
+              onPressed: () {},
+              child: const Text(
+                "Sign in with email",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Don’t have an account?',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Sign up',
+                  style: TextStyle(color: Color(0xFF1BAC4B), fontSize: 15),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

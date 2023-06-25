@@ -27,7 +27,7 @@ class ButtonWithIcon extends StatelessWidget {
       ),
       onPressed: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
