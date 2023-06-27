@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_flutter/screens/login_screen.dart';
+import 'package:food_flutter/screens/register_screen.dart';
 import 'package:food_flutter/screens/splash_screen.dart';
 import 'package:food_flutter/screens/start_login_screen.dart';
 import 'package:food_flutter/screens/walktrough_screen.dart';
@@ -52,6 +53,13 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (context) => const LoginScreen(),
               settings: const RouteSettings(name: '/login'),
+              fullscreenDialog: false,
+              maintainState: true,
+            );
+          case '/register':
+            return MaterialPageRoute(
+              builder: (context) => const RegisterScreen(),
+              settings: const RouteSettings(name: '/register'),
               fullscreenDialog: false,
               maintainState: true,
             );

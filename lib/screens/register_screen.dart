@@ -3,19 +3,19 @@ import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
 import 'package:food_flutter/widget/text_with_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formField = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passController = TextEditingController();
+  final fullNameController = TextEditingController();
   bool passToggle = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 20,
           ),
           const Text(
-            "Login to Your Account",
+            "Create New Account",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
             textAlign: TextAlign.center,
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       if (value!.isEmpty) return "Enter email";
                       bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value);
                       if (!emailValid) {
                         return "Enter Valid Email";
@@ -112,6 +112,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: fullNameController,
+                    decoration: InputDecoration(
+                      labelText: "FullName",
+                      labelStyle: const TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      prefixIcon: const Icon(Icons.person),
+                    ),
+                    style: const TextStyle(color: Colors.white),
+                    validator: (value) {
+                      if (value!.isEmpty) return "Enter fullName";
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1BAC4B)),
@@ -124,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Text(
-                        "Log In",
+                        "Sign Up",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -167,10 +187,10 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 20,
           ),
           TextWithButton(
-            text: 'Don’t have an account?',
-            btnText: 'Sign up',
+            text: 'Already have an account?',
+            btnText: 'Sign in',
             btnFun: () {
-              Navigator.pushNamed(context, '/register');
+              Navigator.pushNamed(context, '/login');
             },
             btnColor: const Color(0xFF1BAC4B),
           ),

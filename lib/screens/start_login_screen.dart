@@ -114,7 +114,9 @@ class _StartLoginScreenState extends State<StartLoginScreen> {
           TextWithButton(
             text: 'Don’t have an account?',
             btnText: 'Sign up',
-            btnFun: () {},
+            btnFun: () {
+              Navigator.pushNamed(context, '/register');
+            },
             btnColor: const Color(0xFF1BAC4B),
           ),
         ],
