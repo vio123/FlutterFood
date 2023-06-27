@@ -12,7 +12,7 @@ class WalktroughScreen extends StatefulWidget {
 
 class _WalktroughScreenState extends State<WalktroughScreen> {
   final _controller = PageController();
-  double page = 0;
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _WalktroughScreenState extends State<WalktroughScreen> {
               child: PageView(
                 onPageChanged: (pag) {
                   setState(() {
-                    page = pag as double;
+                    page = pag;
                   });
                 },
                 controller: _controller,
@@ -103,19 +103,6 @@ class _WalktroughScreenState extends State<WalktroughScreen> {
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeIn);
                   }else{
-                    /*
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                          const StartLoginScreen(),
-                          settings: const RouteSettings(
-                              name: '/start-login'),
-                          fullscreenDialog: false,
-                          maintainState: true,
-                        ));
-
-                     */
                     Navigator.pushReplacementNamed(context, '/start-login');
                   }
                 },
