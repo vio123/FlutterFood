@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(
-            height: 50,
+            height: 30,
           ),
           Align(
             alignment: Alignment.center,
@@ -115,8 +116,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1BAC4B)),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formField.currentState!.validate()) {
+                        try {
+                          await FirebaseAuth
+                              .instance
+                              .signInWithEmailAndPassword(
+                              email: emailController.text.trim(),
+                              password: passController.text);
+                        } on FirebaseAuthException catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Incorrect email or password"), // Display the error message dynamically
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
                         emailController.clear();
                         passController.clear();
                       }
@@ -152,7 +167,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 20,
                   height: 10,
                 ),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 ButtonWithIcon(
                   backgroundColor: Color(0x0f35383f),
                   imageAsset: "assets/appleIcon.png",
