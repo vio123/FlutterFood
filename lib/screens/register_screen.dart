@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
 import 'package:food_flutter/widget/text_with_button.dart';
+
+import '../utils/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -16,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passController = TextEditingController();
   final fullNameController = TextEditingController();
   bool passToggle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value!.isEmpty) return "Enter email";
                       bool emailValid = RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value);
                       if (!emailValid) {
                         return "Enter Valid Email";
@@ -160,25 +164,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
               text: 'or continue with',
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWithIcon(
-                  backgroundColor: Color(0x0f35383f),
+                  backgroundColor: const Color(0x0f35383f),
                   imageAsset: "assets/googleIcon.png",
                   sizedBox: 0,
                   width: 20,
                   height: 10,
+                  onClick: () {
+                    if(kIsWeb){
+                      AuthService.signInWithGoogleWeb();
+                    }else{
+                      AuthService.signInWithGoogle();
+                    }
+                  },
                 ),
-                SizedBox(width: 20,),
+                const SizedBox(
+                  width: 20,
+                ),
                 ButtonWithIcon(
-                  backgroundColor: Color(0x0f35383f),
+                  backgroundColor: const Color(0x0f35383f),
                   imageAsset: "assets/appleIcon.png",
                   sizedBox: 0,
                   width: 20,
                   height: 10,
+                  onClick: () {
+
+                  },
                 ),
               ],
             ),

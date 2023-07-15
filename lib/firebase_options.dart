@@ -51,6 +51,7 @@ class DefaultFirebaseOptions {
     authDomain: 'foodflutter-bd75c.firebaseapp.com',
     storageBucket: 'foodflutter-bd75c.appspot.com',
     measurementId: 'G-4L14B346PZ',
+    databaseURL: "https://foodflutter-bd75c-default-rtdb.firebaseio.com",
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -59,6 +60,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1055746938253',
     projectId: 'foodflutter-bd75c',
     storageBucket: 'foodflutter-bd75c.appspot.com',
+    databaseURL: "https://foodflutter-bd75c-default-rtdb.firebaseio.com",
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'foodflutter-bd75c.appspot.com',
     iosClientId: '1055746938253-va9apb58ev01vqq83loca1atr083jf7o.apps.googleusercontent.com',
     iosBundleId: 'com.example.foodFlutter',
+    databaseURL: "https://foodflutter-bd75c-default-rtdb.firebaseio.com",
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,5 +82,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'foodflutter-bd75c.appspot.com',
     iosClientId: '1055746938253-561etvn43hrssppu5uohe9fb74a6ktm3.apps.googleusercontent.com',
     iosBundleId: 'com.example.foodFlutter.RunnerTests',
+    databaseURL: "https://foodflutter-bd75c-default-rtdb.firebaseio.com",
   );
 }

@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_flutter/utils/auth_service.dart';
 import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
 import 'package:food_flutter/widget/text_with_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -119,15 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       if (_formField.currentState!.validate()) {
                         try {
-                          await FirebaseAuth
-                              .instance
+                          await FirebaseAuth.instance
                               .signInWithEmailAndPassword(
-                              email: emailController.text.trim(),
-                              password: passController.text);
+                                  email: emailController.text.trim(),
+                                  password: passController.text);
+                          Navigator.pushReplacementNamed(context, '/');
                         } on FirebaseAuthException catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Incorrect email or password"), // Display the error message dynamically
+                              content: Text("Incorrect email or password"),
+                              // Display the error message dynamically
                               duration: Duration(seconds: 3),
                             ),
                           );
@@ -155,27 +161,35 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'or continue with',
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWithIcon(
-                  backgroundColor: Color(0x0f35383f),
+                  backgroundColor: const Color(0x0f35383f),
                   imageAsset: "assets/googleIcon.png",
                   sizedBox: 0,
                   width: 20,
                   height: 10,
+                  onClick: () {
+                     if(kIsWeb){
+                       AuthService.signInWithGoogleWeb();
+                     }else{
+                       AuthService.signInWithGoogle();
+                     }
+                  },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ButtonWithIcon(
-                  backgroundColor: Color(0x0f35383f),
+                  backgroundColor: const Color(0x0f35383f),
                   imageAsset: "assets/appleIcon.png",
                   sizedBox: 0,
                   width: 20,
                   height: 10,
+                  onClick: () {},
                 ),
               ],
             ),

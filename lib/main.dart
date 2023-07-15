@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_flutter/firebase_options.dart';
+import 'package:food_flutter/screens/home_screen.dart';
 import 'package:food_flutter/screens/login_screen.dart';
 import 'package:food_flutter/screens/register_screen.dart';
 import 'package:food_flutter/screens/splash_screen.dart';
@@ -69,6 +71,23 @@ class MyApp extends StatelessWidget {
               fullscreenDialog: false,
               maintainState: true,
             );
+          case '/':
+            User? currentUser = FirebaseAuth.instance.currentUser;
+            if(currentUser!=null){
+              return MaterialPageRoute(
+                builder: (context) => const HomePage(),
+                settings: const RouteSettings(name: '/'),
+                fullscreenDialog: false,
+                maintainState: true,
+              );
+            }else{
+              return MaterialPageRoute(
+                builder: (context) => const StartLoginScreen(),
+                settings: const RouteSettings(name: '/start-login'),
+                fullscreenDialog: false,
+                maintainState: true,
+              );
+            }
         }
       },
       title: 'Foodiez',

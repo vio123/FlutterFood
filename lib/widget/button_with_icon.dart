@@ -9,6 +9,7 @@ class ButtonWithIcon extends StatelessWidget {
     this.sizedBox = 10,
     this.width = 15,
     this.height = 25,
+    required this.onClick,
   });
 
   final Color backgroundColor;
@@ -17,6 +18,7 @@ class ButtonWithIcon extends StatelessWidget {
   final double sizedBox;
   final double width;
   final double height;
+  final Function() onClick;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class ButtonWithIcon extends StatelessWidget {
           width: 1, // Grosimea marginilor
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        onClick();
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: width, horizontal: height),
         child: Row(
