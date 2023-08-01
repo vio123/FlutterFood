@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_flutter/utils/database_operations.dart';
 import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
 import 'package:food_flutter/widget/text_with_button.dart';
@@ -71,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value!.isEmpty) return "Enter email";
                       bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value);
                       if (!emailValid) {
                         return "Enter Valid Email";
@@ -139,10 +141,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1BAC4B)),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formField.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Row(
+                                children: [
+                                  CircularProgressIndicator(),
+                                  SizedBox(width: 15),
+                                  Text("Se încarcă..."),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: emailController.text.trim(),
+                            password: passController.text,
+                          );
+                          DatabaseOperations.saveUserData({
+                            'email': emailController.text,
+                            'fullName': fullNameController.text
+                          },context);
+                        } on FirebaseAuthException catch (e) {
+                          Navigator.of(context).pop(); // Close the dialog
+                        }
                         emailController.clear();
                         passController.clear();
+                        fullNameController.clear();
                       }
                     },
                     child: const Padding(
@@ -176,10 +208,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: 20,
                   height: 10,
                   onClick: () {
-                    if(kIsWeb){
-                      AuthService.signInWithGoogleWeb();
-                    }else{
-                      AuthService.signInWithGoogle();
+                    if (kIsWeb) {
+                      AuthService.signInWithGoogleWeb().then((value) {
+                        Navigator.pushReplacementNamed(context, '/');
+                      });
+                    } else {
+                      AuthService.signInWithGoogle().then((value) {
+                        Navigator.pushReplacementNamed(context, '/');
+                      });
                     }
                   },
                 ),
@@ -192,9 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   sizedBox: 0,
                   width: 20,
                   height: 10,
-                  onClick: () {
-
-                  },
+                  onClick: () {},
                 ),
               ],
             ),

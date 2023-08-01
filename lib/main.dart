@@ -13,6 +13,7 @@ import 'package:food_flutter/screens/welcome_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: "test",
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
@@ -73,14 +74,14 @@ class MyApp extends StatelessWidget {
             );
           case '/':
             User? currentUser = FirebaseAuth.instance.currentUser;
-            if(currentUser!=null){
+            if (currentUser != null) {
               return MaterialPageRoute(
-                builder: (context) => const HomePage(),
+                builder: (context) => const HomeScreen(),
                 settings: const RouteSettings(name: '/'),
                 fullscreenDialog: false,
                 maintainState: true,
               );
-            }else{
+            } else {
               return MaterialPageRoute(
                 builder: (context) => const StartLoginScreen(),
                 settings: const RouteSettings(name: '/start-login'),
