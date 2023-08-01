@@ -1,10 +1,12 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseOperations{
-  static final databaseRef = FirebaseDatabase.instance.ref();
-  static void saveUserData(userData,context) {
-    databaseRef.child('users').push().set(userData).then((_) {
+class DatabaseOperations {
+  static final CollectionReference usersRef =
+  FirebaseFirestore.instance.collection('users');
+
+  static void saveUserData(Map<String, dynamic> userData, BuildContext context) {
+    usersRef.add(userData).then((docRef) {
       // Data saved successfully
       Navigator.pushReplacementNamed(context, '/');
     }).catchError((error) {
@@ -12,4 +14,4 @@ class DatabaseOperations{
       print('Data could not be saved: $error');
     });
   }
-} 
+}
