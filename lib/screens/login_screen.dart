@@ -7,7 +7,6 @@ import 'package:food_flutter/utils/auth_service.dart';
 import 'package:food_flutter/widget/button_with_icon.dart';
 import 'package:food_flutter/widget/line_text_widget.dart';
 import 'package:food_flutter/widget/text_with_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

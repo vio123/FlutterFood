@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -153,19 +154,29 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      restaurantListItem(),
-                      SizedBox(height: 20),
-                      restaurantListItem(),
-                      SizedBox(height: 20),
-                      restaurantListItem(),
-                      SizedBox(height: 20),
-                      restaurantListItem(),
-                      SizedBox(height: 20),
-                    ],
-                  ),
+                child: StreamBuilder(
+                  stream: _selectedItem == "All"
+                      ? FirebaseFirestore.instance
+                          .collection('restaurants')
+                          .snapshots()
+                      : FirebaseFirestore.instance
+                          .collection('restaurants')
+                          .where('category', isEqualTo: _selectedItem)
+                          .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                    final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
+                    final List<Widget> restaurantList = documents.map((doc) => restaurantListItem(doc)).toList();
+
+                    return ListView(
+                      children: restaurantList,
+                    );
+                  },
                 ),
               ),
             ],
@@ -175,7 +186,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget restaurantListItem() {
+  Widget restaurantListItem(QueryDocumentSnapshot doc) {
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(maxHeight: 148),
@@ -205,7 +216,7 @@ class _HomePageState extends State<HomePage> {
               color: Color(0xFFBDBDBD),
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                image: NetworkImage("https://via.placeholder.com/120x120"),
+                image: NetworkImage(doc['image']),
                 fit: BoxFit.cover,
               ),
             ),
@@ -217,7 +228,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Vegetarian Noodles',
+                   doc['name'],
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -290,11 +301,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     const SizedBox(width: 8),
-                    Icon(
-                        Icons.favorite,
-                        size: 24,
-                        color: Colors.red
-                    ),
+                    Icon(Icons.favorite, size: 24, color: Colors.red),
                   ],
                 ),
               ],
